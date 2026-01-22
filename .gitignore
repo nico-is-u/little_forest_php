@@ -10,6 +10,7 @@
 *.log
 .env
 ./composer.lock
+/vendor
 /addons
 /runtime
 /public/static/addons
