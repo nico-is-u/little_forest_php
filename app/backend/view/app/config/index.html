@@ -1,0 +1,9 @@
+<blockquote class="layui-elem-quote layui-text">
+    <legend>系统设置</legend>
+</blockquote>
+<form class="layui-form" action="" method="post" lay-filter="form">
+    {:form_input('app_version','text',['label'=>'App版本号','verify'=>'required','tips'=>'例如：1.0.0'],$formData['app_version']??'1.0.0')}
+    {:form_input('app_force_guide','text',['label'=>'强制引导页','tips'=>'同App版本号,即为强制全体用户重现引导页'],$formData['app_force_guide']??'0')}
+    {:form_submitbtn(true,['show'=>1])}
+</form>
+
