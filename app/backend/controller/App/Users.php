@@ -44,13 +44,28 @@ class Users extends Backend
             }
             list($this->page, $this->pageSize, $sort, $where) = $this->buildParames();
             $list = $this->modelClass
+                ->with(['balance'])  // 预加载余额关联
                 ->where($where)
                 ->order($sort)
                 ->paginate([
                     'list_rows' => $this->pageSize,
                     'page' => $this->page,
                 ]);
-            $result = ['code' => 0, 'msg' => lang('Get Data Success'), 'data' => $list->items(), 'count' => $list->total()];
+            // 将余额字段扁平化到平级
+            $items = [];
+            foreach ($list->items() as $item) {
+                $data = $item->toArray();
+                // 将 balance 放到平级
+                if (isset($data['balance']) && !empty($data['balance'])) {
+                    $data['balance'] = $data['balance']['balance'] ?? 0.00;
+                    $data['total_recharge'] = $data['balance']['total_recharge'] ?? 0.00;
+                    $data['total_consume'] = $data['balance']['total_consume'] ?? 0.00;
+                    // 移除嵌套的 balance 数组
+                    unset($data['balance']);
+                }
+                $items[] = $data;
+            }
+            $result = ['code' => 0, 'msg' => lang('Get Data Success'), 'data' => $items, 'count' => $list->total()];
             return json($result);
         }
         return view();

@@ -20,22 +20,8 @@ define(['table', 'form'], function (Table, Form) {
                 cols: [[
                     {checkbox: true},
                     {field: 'id', title: 'ID', width: 80, sort: true},
-                    {field: 'openid', title: 'OpenID', minWidth: 200},
-                    {field: 'nickname', title: '昵称', width: 120},
                     {field: 'avatar', title: '头像', width: 80, templet: 'Table.templet.image'},
                     {field: 'mobile', title: '手机号', width: 120},
-                    {
-                        field: 'gender',
-                        title: '性别',
-                        width: 80,
-                        templet: function(d) {
-                            if (d.gender == 1) return '<span class="layui-badge layui-bg-blue">男</span>';
-                            if (d.gender == 2) return '<span class="layui-badge layui-bg-pink">女</span>';
-                            return '<span class="layui-badge layui-bg-gray">未知</span>';
-                        }
-                    },
-                    {field: 'city', title: '城市', width: 100},
-                    {field: 'province', title: '省份', width: 100},
                     {
                         field: 'status',
                         title: '状态',
@@ -43,9 +29,9 @@ define(['table', 'form'], function (Table, Form) {
                         templet: 'Table.templet.switch',
                         selectList: {0: '禁用', 1: '启用'}
                     },
-                    {field: 'create_time', title: '注册时间', width: 160, templet: 'Table.templet.time'},
+                    {field: 'balance', title: '余额', minWidth: 120},
                     {
-                        width: 180,
+                        minWidth: 180,
                         align: 'center',
                         title: '操作',
                         init: Table.init,

@@ -6,8 +6,8 @@
     {:Form::input('province','text',['label'=>'省份'],$formData['province']??'')}
     {:Form::input('country','text',['label'=>'国家'],$formData['country']??'')}
     {:Form::input('language','text',['label'=>'语言'],$formData['language']??'')}
-    {:Form::radio('status',['正常','禁用'],['label'=>'状态','filter'=>'status'],1)}
+    {:Form::radio('status',['正常','禁用'],['label'=>'状态','filter'=>'status'],0)}
     {:Form::input('openid','text',['label'=>'OpenID','tips'=>'微信OpenID（可选，H5端用户可为空）'],$formData['openid']??'')}
-    {:Form::input('unionid','text',['label'=>'UnionID','tips'=>'微信UnionID'],$formData['unionid']??'')}
+    {:Form::input('unionid','text',['label'=>'UnionID','tips'=>'微信UnionID（可选，H5端用户可为空）'],$formData['unionid']??'')}
     {:Form::submit()}
 </form>

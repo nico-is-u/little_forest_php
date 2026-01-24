@@ -13,4 +13,12 @@ class AppUsers extends BaseModel
     protected $name = 'app_users';
 
     protected $autoWriteTimestamp = true;
+
+    /**
+     * 关联用户余额表
+     */
+    public function balance()
+    {
+        return $this->hasOne(AppUserBalance::class, 'user_id', 'id');
+    }
 }

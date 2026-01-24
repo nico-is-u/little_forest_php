@@ -42,7 +42,8 @@
     "firebase/php-jwt": "*",
     "overtrue/pinyin": "^5.3",
     "php-mcp/server": "^3.3",
-    "qcloud/cos-sdk-v5": "^2.6"
+    "qcloud/cos-sdk-v5": "^2.6",
+    "topthink/think-migration": "^3.1"
   },
   "require-dev": {
         "symfony/var-dumper": ">=6.4",
