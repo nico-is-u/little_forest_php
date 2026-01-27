@@ -10,6 +10,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // 插入用户记录
         $this->table('app_users')->insert([
             [
                 'openid' => 'test_openid_' . time(),
@@ -19,6 +20,23 @@ class UserSeeder extends Seeder
                 'gender' => 0,
                 'status' => 1,
                 'create_time' => time(),
+            ]
+        ])->save();
+
+        // 获取刚插入的用户ID
+        $userId = $this->getAdapter()->getConnection()->lastInsertId();
+
+        // 插入余额记录
+        $this->table('app_user_balance')->insert([
+            [
+                'user_id' => $userId,
+                'balance' => 1000000.00,
+                'total_recharge' => 0.00,
+                'total_consume' => 0.00,
+                'status' => 1,
+                'create_time' => time(),
+                'update_time' => null,
+                'delete_time' => null,
             ]
         ])->save();
     }

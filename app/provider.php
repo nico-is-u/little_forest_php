@@ -16,5 +16,6 @@ use app\Request;
 return [
     'think\Request'          => Request::class,
     'think\exception\Handle' => ExceptionHandle::class,
+    'cos' => \app\common\service\CosService::class,
 //    'think\Paginator' => 'app\common\paginator\Layui',
 ];

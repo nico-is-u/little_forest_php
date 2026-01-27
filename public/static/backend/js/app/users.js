@@ -16,11 +16,22 @@ define(['table', 'form'], function (Table, Form) {
                 id: Table.init.tableId,
                 url: Fun.url(Table.init.requests.index_url),
                 init: Table.init,
+                size: 'lg',
                 toolbar: ['refresh', 'add', 'delete'],
                 cols: [[
-                    {checkbox: true},
                     {field: 'id', title: 'ID', width: 80, sort: true},
-                    {field: 'avatar', title: '头像', width: 80, templet: 'Table.templet.image'},
+                    {
+                        field: 'avatar', 
+                        title: '头像', 
+                        width: 80, 
+                        templet: function(d) {
+                            if (d.avatar) {
+                                return '<img src="' + Config.cos_url + '/' + d.avatar + '" style="width:40px;height:40px;border-radius:50%;">';
+                            } else {
+                                return '<img src="/static/common/images/avatar.jpg" style="width:40px;height:40px;border-radius:50%;" />';
+                            }
+                        }
+                    },
                     {field: 'mobile', title: '手机号', width: 120},
                     {
                         field: 'status',

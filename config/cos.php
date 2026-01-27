@@ -26,4 +26,7 @@ return [
 
     // 文件访问权限：private（私有）, public-read（公共读）
     'acl' => env('COS_ACL', 'private'),
+
+    // 临时链接访问时间
+    'expire' => 600,
 ];

@@ -8,6 +8,13 @@ define(['backend'], function (Backend) {
                 loadingTime: '',
                 theme:''
             })
+
+
+            /* 关闭layui调试模式 */
+            layui.config({
+                debug:false
+            })
+
             //刷新菜单事件
             $(document).on('refresh', '#layui-side-left-menu', function () {
                 var _that = $(this);
