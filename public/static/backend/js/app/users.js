@@ -17,13 +17,22 @@ define(['table', 'form'], function (Table, Form) {
                 url: Fun.url(Table.init.requests.index_url),
                 init: Table.init,
                 size: 'lg',
+                searchInput:false,
+                searchShow:false,
                 toolbar: ['refresh', 'add', 'delete'],
                 cols: [[
-                    {field: 'id', title: 'ID', width: 80, sort: true},
+                    {
+                        field: 'id',
+                        title: 'ID',
+                        width: 80,
+                        sort: true,
+                        search:false,
+                    },
                     {
                         field: 'avatar', 
                         title: '头像', 
-                        width: 80, 
+                        width: 80,
+                        search:false,
                         templet: function(d) {
                             if (d.avatar) {
                                 return '<img src="' + Config.cos_url + '/' + d.avatar + '" style="width:40px;height:40px;border-radius:50%;">';
@@ -40,7 +49,19 @@ define(['table', 'form'], function (Table, Form) {
                         templet: 'Table.templet.switch',
                         selectList: {0: '禁用', 1: '启用'}
                     },
-                    {field: 'balance', title: '余额', minWidth: 120},
+                    {
+                        field: 'balance', 
+                        title: '余额', 
+                        minWidth: 120,
+                        templet: function(d) {
+                            console.log(d)
+                            if (d.balance) {
+                                return '<span style="font-size:.85rem" class="layui-badge layui-bg-gray">' + d.balance + '</span>';
+                            } else {
+                                return '<span style="font-size:.85rem" class="layui-badge layui-bg-gray">0.00</span>';
+                            }
+                        }
+                    },
                     {
                         minWidth: 180,
                         align: 'center',

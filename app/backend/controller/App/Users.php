@@ -60,8 +60,6 @@ class Users extends Backend
                     $data['balance'] = $data['balance']['balance'] ?? 0.00;
                     $data['total_recharge'] = $data['balance']['total_recharge'] ?? 0.00;
                     $data['total_consume'] = $data['balance']['total_consume'] ?? 0.00;
-                    // 移除嵌套的 balance 数组
-                    unset($data['balance']);
                 }
                 $items[] = $data;
             }
