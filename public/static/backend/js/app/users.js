@@ -41,12 +41,17 @@ define(['table', 'form'], function (Table, Form) {
                             }
                         }
                     },
-                    {field: 'mobile', title: '手机号', width: 120},
+                    {
+                        field: 'mobile', 
+                        title: '手机号', 
+                        width: 120
+                    },
                     {
                         field: 'status',
                         title: '状态',
                         width: 100,
                         templet: 'Table.templet.switch',
+                        search:false,
                         selectList: {0: '禁用', 1: '启用'}
                     },
                     {

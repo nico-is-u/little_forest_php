@@ -5,9 +5,8 @@
 namespace app\backend\controller\App;
 
 use app\common\controller\Backend;
-use think\App as ThinkApp;
+use app\common\model\Config as ConfigModel;
 use think\facade\Cache;
-use think\facade\Db;
 use think\facade\View;
 use app\common\annotation\ControllerAnnotation;
 use app\common\annotation\NodeAnnotation;
@@ -29,23 +28,21 @@ class Config extends Backend
         if ($this->request->isPost()) {
             $post = $this->request->post();
             
-            // 更新配置到数据库
-            foreach ($post as $k => $v) {
-                $res = Db::name('config')
-                    ->where('code', $k)
-                    ->where('group', 'app')
-                    ->update(['value' => $v]);
+            // 使用模型批量更新配置
+            $db = new ConfigModel();
+            $result = $db::updateConfigs($post, 'app');
+            
+            if ($result === false) {
+                $this->error('保存失败');
             }
 
             Cache::clear();
             $this->success('保存成功');
         }
 
-        // 获取app分组下的所有配置
-        $configList = Db::name('config')
-            ->where('group', 'app')
-            ->where('status', 1)
-            ->column('value', 'code');
+        // 使用模型获取app分组下的所有配置
+        $db = new ConfigModel();
+        $configList = $db::getConfigsByGroup('app', true);
 
         View::assign('formData', $configList);
         return view();
