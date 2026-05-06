@@ -10,6 +10,14 @@ Route::group('api/v1', function () {
     Route::get('test', function () {return 'api test';});
 
 
+    /**
+     * @用户模块
+     */
+    Route::group('users',function(){
+        /* @用户登录 */
+        Route::post('login', 'UserController/login');
+    });
+
 
     /**
      * @公共接口
@@ -19,4 +27,5 @@ Route::group('api/v1', function () {
         Route::get('sms_code', 'OtherController/sms_code');
     });
 
-})->namespace('app\controller\api');
+})
+->namespace('app\controller\api');
