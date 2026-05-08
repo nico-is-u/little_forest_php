@@ -5,6 +5,7 @@ namespace app\controller\api;
 
 use think\Request;
 use think\facade\Cache;
+use think\facade\Lang;
 use think\middleware\annotation\RateLimit;
 
 use app\common\HttpCode;
@@ -26,7 +27,7 @@ class OtherController
         if (!$phone || !preg_match('/^1[3-9]\d{9}$/', $phone)) {
             return json([
                 'code' => HttpCode::ERROR,
-                'msg' => '手机号码格式不正确'
+                'msg' => lang('wrong.phone')
             ]);
         }
 
@@ -47,7 +48,7 @@ class OtherController
         
         return json([
             'code' => HttpCode::SUCCESS,
-            'msg' => '验证码已发送',
+            'msg' => lang('success.sms_code'),
             'data' => [
                 'sms_code' => $sms_code // 仅用于测试，实际项目中请勿将验证码返回给前端
             ]

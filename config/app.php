@@ -27,4 +27,14 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => false,
+
+    // 信任代理服务器IP 支持网段
+    'proxy_ip' => [
+        '127.0.0.1',
+        'localhost',
+        '192.168.*',
+        '10.0.*.*',
+    ],
+
+
 ];
