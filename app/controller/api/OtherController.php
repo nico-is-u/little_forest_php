@@ -6,6 +6,8 @@ namespace app\controller\api;
 use think\Request;
 use think\facade\Cache;
 use think\facade\Lang;
+use think\facade\View;
+
 use think\middleware\annotation\RateLimit;
 
 use app\common\HttpCode;
@@ -19,7 +21,7 @@ class OtherController
     /**
      * 拉取短信验证码
      */
-    // #[RateLimit(rate: "2/m")]
+    #[RateLimit(rate: "2/m")]
     public function sms_code(Request $request)
     {
         /* 验证手机号码 */
@@ -55,6 +57,13 @@ class OtherController
         ]);
         
 
+    }
+
+    /**
+     * 测试接口
+     */
+    public function only_test(){
+        return View::fetch('api/only_test');
     }
 
 }

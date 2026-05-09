@@ -27,7 +27,8 @@
         "topthink/think-throttle": "^3.0",
         "topthink/think-cors": "^1.0",
         "topthink/think-migration": "^3.1",
-        "firebase/php-jwt": "^7.0"
+        "firebase/php-jwt": "^7.0",
+        "topthink/think-view": "^2.0"
     },
     "require-dev": {
         "topthink/think-dumper": "^1.0",
