@@ -14,6 +14,7 @@ class JwtUtil
             'iat' => time(),
             'exp' => time() + $config['expire'],
             'user_id' => $user['id'],
+            'user_code' => $user['user_code'],
             'phone' => $user['phone'],
         ];
         return JWT::encode($payload, $config['secret'], 'HS256');

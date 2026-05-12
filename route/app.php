@@ -19,6 +19,8 @@ Route::group('api/v1', function () {
 
         /* @获取用户信息 - 需要认证 */
         Route::get('info', 'UserController/info');
+        Route::post('info', 'UserController/edit');
+
     });
 
 
@@ -28,6 +30,11 @@ Route::group('api/v1', function () {
     Route::group('get', function () {
         /* @获取验证码 - 白名单 */
         Route::get('sms_code', 'OtherController/sms_code');
+    });
+
+    Route::group('common', function () {
+        /* @上传文件 - 需要认证 */
+        Route::post('upload', 'OtherController/upload');
     });
 
 })

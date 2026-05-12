@@ -7,6 +7,7 @@ use think\Request;
 use think\facade\Cache;
 use think\facade\Lang;
 use think\facade\View;
+use think\facade\Filesystem;
 
 use think\middleware\annotation\RateLimit;
 
@@ -56,6 +57,93 @@ class OtherController
             ]
         ]);
         
+
+    }
+
+    /**
+     * 上传文件（公共）
+     * 暂时只处理图片
+     */
+    public function upload(Request $request)
+    {
+        /* 验证文件是否存在 */
+        try {
+            $file = $request->file('file');
+
+            /* 验证文件格式 */
+            $acceptTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!in_array($file->getMime(), $acceptTypes)) {
+                return json([
+                    'code' => HttpCode::ERROR,
+                    'msg' => lang('wrong.params')
+                ]);
+            }
+
+            /* 验证文件尺寸 */
+            $maxSize = .5 * 1024 * 1024; // 0.5MB
+            if ($file->getSize() > $maxSize) {
+                return json([
+                    'code' => HttpCode::ERROR,
+                    'msg' => lang('wrong.upload_max')
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            return json([
+                'code' => HttpCode::ERROR,
+                'msg' => lang('wrong.params')
+            ]);
+        }
+
+        /* 得到上传场景 */
+        $scene = $request->param('scene', 'portrait'); // 默认头像上传
+        
+        /* 生成文件路径 */
+        $authUser = $request->authUser;
+        switch ($scene) {
+            case 'portrait':
+            default:
+                $putPath = 'portrait/'. $authUser['user_code'];
+                $putFileName = '1.' . $file->getOriginalExtension();
+                break;
+        }
+        
+        /* 存储文件 */
+        try {
+            
+            /* 如果上传头像，清除旧头像 */
+            if ($scene === 'portrait') {
+
+                $oldFiles = Filesystem::listContents('uploads/images')
+                ->filter(function ($entry) {
+                    // 只筛选文件
+                    return $entry->isFile();
+                })
+                ->toArray();
+
+                if(!empty($oldFiles)){
+                    Filesystem::delete($oldFiles);
+                }
+            }
+
+            /* 上传资源 */
+            $savePath = Filesystem::putFileAs($putPath, $file, $putFileName);
+            
+            return json([
+                'code' => HttpCode::SUCCESS,
+                'msg' => lang('success.upload'),
+                'data' => [
+                    'url' => Filesystem::url($savePath)
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return json([
+                'code' => HttpCode::ERROR,
+                'msg' => lang('error.upload')
+            ]);
+        }
+
 
     }
 

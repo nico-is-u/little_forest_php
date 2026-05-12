@@ -2,7 +2,7 @@
 
 return [
     // 默认磁盘
-    'default' => 'local',
+    'default' => 'public',
     // 磁盘列表
     'disks'   => [
         'local'  => [
@@ -15,7 +15,7 @@ return [
             // 磁盘路径
             'root'       => app()->getRootPath() . 'public/storage',
             // 磁盘路径对应的外部URL路径
-            'url'        => '/storage',
+            'url'        => '/',
             // 可见性
             'visibility' => 'public',
         ],
