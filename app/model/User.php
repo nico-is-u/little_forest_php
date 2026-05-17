@@ -17,4 +17,9 @@ class User extends Model
     {
         return $this->hasOne(UserInfo::class,'user_id');
     }
+
+    public function userCoupons()
+    {
+        return $this->hasMany(UserCoupon::class, 'user_id');
+    }
 }

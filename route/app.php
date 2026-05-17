@@ -25,6 +25,24 @@ Route::group('api/v1', function () {
 
 
     /**
+     * @优惠券模块
+     */
+    Route::group('coupons', function(){
+        /* @获取用户优惠券列表 - 需要认证 */
+        Route::get('list', 'CouponController/list');
+
+        /* @领取优惠券 - 需要认证 */
+        Route::post('receive', 'CouponController/receive');
+
+        /* @验证优惠券 - 需要认证 */
+        Route::post('validate', 'CouponController/validate');
+
+        /* @使用优惠券 - 需要认证 */
+        Route::post('use', 'CouponController/use');
+    });
+
+
+    /**
      * @公共接口
      */
     Route::group('get', function () {

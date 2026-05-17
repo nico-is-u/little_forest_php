@@ -8,6 +8,7 @@ use think\facade\Cache;
 use think\facade\Filesystem;
 
 use app\model\User as DBUser;
+use app\model\UserCoupon;
 use app\service\UserService;
 
 use app\common\HttpCode;
@@ -74,7 +75,7 @@ class UserController
         $authUser = $request->authUser;
 
         // 根据 token 中的用户 ID 获取完整的用户信息
-        $user = DBUser::with('profile')->find($authUser['user_id']);
+        $user = DBUser::with(['profile', 'userCoupons'])->find($authUser['user_id']);
 
         if (!$user) {
             return json([
@@ -86,6 +87,12 @@ class UserController
         /* 摊平字段 */
         $user = $user->toArray();
         $data = array_merge($user, $user['profile']);
+
+        /* 手机号码隐蔽处理 */
+        $data['phone'] = substr_replace($data['phone'], '****', 3, 4);
+
+        /* 优惠券数量 */
+        $data['couponCount'] = count($user['userCoupons']);
 
         /* 隐蔽敏感字段 */
         unset($data['profile']);

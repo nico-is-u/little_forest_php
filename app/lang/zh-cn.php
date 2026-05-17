@@ -22,6 +22,20 @@ return [
         '401' => "未授权访问，请提供有效的 token",
     ],
 
+    'coupon' => [
+        'not_found_or_expired' => '优惠券不存在或已过期',
+        'out_of_stock' => '优惠券已领完',
+        'already_received' => '您已领取过此优惠券',
+        'receive_success' => '领取成功',
+        'not_available' => '优惠券不可用',
+        'expired' => '优惠券已过期',
+        'min_amount_not_met' => '订单金额未达到优惠券使用门槛',
+        'use_success' => '优惠券使用成功',
+        'code_required' => '优惠券代码不能为空',
+        'id_required' => '优惠券ID不能为空',
+        'use_params_required' => '使用优惠券需要提供优惠券ID和订单ID',
+    ],
+
     'user' => [
         ''
     ]
