@@ -48,6 +48,9 @@ Route::group('api/v1', function () {
     Route::group('get', function () {
         /* @获取验证码 - 白名单 */
         Route::get('sms_code', 'OtherController/sms_code');
+
+        /* @获取小区列表 - 白名单 */
+        Route::get('communities', 'CommunityController/list');
     });
 
     Route::group('common', function () {

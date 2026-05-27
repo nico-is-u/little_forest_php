@@ -75,7 +75,7 @@ class UserController
         $authUser = $request->authUser;
 
         // 根据 token 中的用户 ID 获取完整的用户信息
-        $user = DBUser::with(['profile', 'userCoupons'])->find($authUser['user_id']);
+        $user = DBUser::with('profile')->find($authUser['user_id']);
 
         if (!$user) {
             return json([
@@ -92,7 +92,7 @@ class UserController
         $data['phone'] = substr_replace($data['phone'], '****', 3, 4);
 
         /* 优惠券数量 */
-        $data['couponCount'] = count($user['userCoupons']);
+        $data['coupon_count'] = UserCoupon::where('user_id', $authUser['user_id'])->count();
 
         /* 隐蔽敏感字段 */
         unset($data['profile']);
@@ -139,7 +139,7 @@ class UserController
         if ($portrait) {
             /* 必须是一个路径 */
             if (is_string($portrait) && Filesystem::has(str_replace('/storage/', '', $portrait))) {
-                $user->profile->portrait = $portrait;
+                $user->profile->portrait = '/storage' . $portrait;
             } else {
                 return json([
                     'code' => HttpCode::ERROR,

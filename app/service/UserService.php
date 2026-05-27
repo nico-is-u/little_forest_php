@@ -103,22 +103,32 @@ class UserService
      */
     public static function insertTestUser(): void
     {
-        $userCode = (new self())->getUserCode();
-        $userId = DBUser::insertGetId([
-            'user_code' => $userCode,
-            'phone' => '18200000001',
-            'last_login_ip' => '127.0.0.1',
-            'last_login_time' => now(),
-        ]);
 
-        DBUserInfo::create([
-            'user_id' => $userId,
-            'nickname' => '测试用户',
-            'level' => 1,
-            'integral' => 0,
-            'balance' => 0.00,
-            'sex' => 1,
-        ]);
+        /* 测试用户数据 */
+        $testData = [
+            [
+                'user_code' => (new self())->getUserCode(),
+                'phone' => '18200000001',
+                'last_login_ip' => '127.0.0.1',
+                'last_login_time' => now(),
+            ]
+        ];
+
+        foreach ($testData as $data) {
+            if (!DBUser::where('phone', $data['phone'])->find()) {
+                
+                $userId = DBUser::insertGetId($data);
+
+                DBUserInfo::create([
+                    'user_id' => $userId,
+                    'nickname' => '测试用户',
+                    'level' => 1,
+                    'integral' => 0,
+                    'balance' => 0.00,
+                    'sex' => 1,
+                ]);
+            }
+        }
 
     }
 }

@@ -25,7 +25,8 @@ class Auth
         'POST' => ['users/login'],
         'GET' => [
             'test',
-            'get/sms_code'
+            'get/sms_code',
+            'get/communities'
         ],
     ];
 
